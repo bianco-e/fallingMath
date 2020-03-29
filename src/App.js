@@ -26,6 +26,17 @@ function App() {
     setRandomNumber2(generateNumber());
   }, []);
 
+  useEffect(() => {
+    if (lifes < 1) {
+      alert(`You lost! Your score was ${score}`);
+      setScore(0);
+      setLifes(5);
+      setRandomNumber(generateNumber());
+      setRandomOperator(generateOperator());
+      setRandomNumber2(generateNumber());
+    }
+  }, [lifes]);
+
   const operationResult = () => {
     return randomOperator === "+"
       ? randomNumber + randomNumber2
@@ -33,18 +44,22 @@ function App() {
       ? randomNumber - randomNumber2
       : randomOperator === "*"
       ? randomNumber * randomNumber2
-      : randomNumber / randomNumber2;
+      : (randomNumber / randomNumber2) % 1 !== 0 &&
+        (randomNumber / randomNumber2).toFixed(2);
   };
 
   const result = operationResult();
 
   const generateRandomButtons = result => {
     const buttonsToChooseArray = [];
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 8; i++) {
       buttonsToChooseArray.push(Math.round(Math.random() * 130));
     }
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < 8; i++) {
       buttonsToChooseArray.push(Math.round(Math.random() * -30));
+    }
+    for (let i = 0; i < 3; i++) {
+      buttonsToChooseArray.push((Math.random() * 10).toFixed(2));
     }
     for (let i = 0; i < 3; i++) {
       buttonsToChooseArray.push("<" + Math.round(Math.random() * 55));
@@ -52,6 +67,7 @@ function App() {
     for (let i = 0; i < 3; i++) {
       buttonsToChooseArray.push(">" + Math.round(Math.random() * 55));
     }
+
     return buttonsToChooseArray.concat(result);
   };
   const buttonsToChooseArray = generateRandomButtons(result);
@@ -75,14 +91,11 @@ function App() {
       <button
         className="fallingButton"
         onClick={() => {
-          return (
-            buttonsArray.includes(eachButton)
-              ? eachButton === result
-                ? setScore(score + 2)
-                : setScore(score + 1)
-              : setLifes(lifes - 1),
-            lifes < 2 && alert(`You lost! Your score was ${score}`)
-          );
+          return buttonsArray.includes(eachButton)
+            ? eachButton === result
+              ? setScore(score + 2)
+              : setScore(score + 1)
+            : setLifes(lifes - 1);
         }}
       >
         {eachButton}

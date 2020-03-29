@@ -12,10 +12,11 @@
 }
 
 .fallingButton {
-  border-radius: 10px;
+  padding: 10px;
+  font-size: 14px;
   background: none;
-  color: black;
   border: none;
+  color: black;
 }
 
 .bottomDiv {

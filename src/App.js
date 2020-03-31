@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useTransition, animated } from "react-spring";
+import { useInterval } from "./hooks/useInterval";
 import "./App.css";
 import FallingButton from "./components/FallingButton";
 import Score from "./components/Score";
@@ -59,10 +60,11 @@ function App() {
   const [optionsToShow, setOptionsToShow] = useState([]);
   const [correctOptions, setCorrectOptions] = useState([]);
   const [result, setResult] = useState();
+  const [time, setTime] = useState(60);
 
   const newOperationAndResult = () => {
     const firstNumber = generateNumber();
-    const secondNumber = generateNumber();
+    const secondNumber = generateNumber() + 1;
     const operator = generateOperator();
     const newResult = operationResult(firstNumber, secondNumber, operator);
     setRandomNumber(firstNumber);
@@ -101,14 +103,19 @@ function App() {
     configNewStage();
   }, []);
 
+  useInterval(() => {
+    time > 0 && setTime(time - 1);
+  }, 1000);
+
   useEffect(() => {
-    if (lifes < 1) {
+    if (lifes < 1 || time < 1) {
       alert(`You lost! Your score was ${score}`);
+      setTime(60);
       setScore(0);
       setLifes(5);
       configNewStage();
     }
-  }, [lifes]);
+  }, [lifes, time]);
 
   useEffect(() => {
     configNewStage();
@@ -140,7 +147,10 @@ function App() {
       </div>
       <div className="bottomDiv">
         <Score score={score} />
-        <h1>{`${randomNumber} ${randomOperator} ${randomNumber2}`}</h1>
+        <div>
+          <h1>{`${randomNumber} ${randomOperator} ${randomNumber2}`}</h1>
+          <h3>{time}</h3>
+        </div>
         <Lifes lifes={lifes} />
       </div>
     </div>

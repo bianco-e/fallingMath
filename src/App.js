@@ -124,7 +124,7 @@ function App() {
   const transitions = useTransition(optionsToShow, item => item.key, {
     from: { transform: "translate3d(0,-100px,0)" },
     enter: () => ({
-      transform: `translate3d(0,${Math.random() * (420 - 10) + 10}px,0)`
+      transform: `translate3d(0,${Math.random() * (420 - 40) + 40}px,0)`
     })
   });
   return (

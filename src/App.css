@@ -1,5 +1,5 @@
 .wrapper {
-  width: 80%;
+  width: 95%;
   margin: auto;
   text-align: center;
 }
@@ -7,14 +7,16 @@
 .fallingButtonsDiv {
   display: flex;
   height: 75vh;
-  background-color: white;
-  box-shadow: 0px 0px 100px lightgrey, inset 0px 0px 20px lightgrey;
-  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(./images/cloud.png);
+  background-repeat: repeat-x, space;
+  background-size: 88px;
 }
 
 .fallingButton {
   padding: 10px;
-  font-size: 14px;
+  font-size: 10px;
+  font-family: "Press Start 2P";
   background: none;
   border: none;
   color: black;
@@ -28,6 +30,7 @@
 .bottomDiv {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .lifesDiv {
@@ -42,6 +45,10 @@
 }
 
 .heartImage {
-  height: 25px;
-  width: 25px;
+  height: 32px;
+  width: 32px;
+}
+
+.scoreClass {
+  font-size: 16px;
 }
